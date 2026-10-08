@@ -177,8 +177,11 @@ def delta_from_witness(
 ) -> Tuple[int, str]:
     """Heuristic benevolence delta from a witness panel outcome.
 
-    Labeled heuristic v2026.1. Bot deltas must come from this function
-    (witness findings) — never from the bot's own declaration.
+    SUPERSEDED by calculate_delta (v2026.2). Kept for backward
+    compatibility only — new code must use calculate_delta.
+
+    Labeled heuristic v2026.1. Bot deltas must come from witness
+    findings — never from the bot's own declaration.
 
     Shadow benevolence: evidence claims to serve another's good while the
     witnesses flag deception or disproportionate harm. The claim is
@@ -230,6 +233,83 @@ def delta_from_witness(
             "cleanly within bounds; avoiding harm is not benevolence, but it is not extraction",
         )
     return 0, "heuristic v2026.1: all witnesses abstained — no benevolence signal"
+
+
+# ---------------------------------------------------------------------------
+# Δ Benevolence Calculation (v2026.2) — Mythara engine revision
+# ---------------------------------------------------------------------------
+# Five-step calculation. Witnesses score −5 to +5 on their domain;
+# the delta derives from consensus, impact scale, and shadow intent.
+# Replaces placeholder ranges with computed values.
+
+# Impact scale multipliers by affected party count
+IMPACT_SCALE = [
+    (1, 0.5),      # 1 person
+    (10, 1.0),     # 2–10 people
+    (100, 1.5),    # 11–100 people
+    (float("inf"), 2.0),  # 101+ people
+]
+
+DELTA_MIN, DELTA_MAX = -100, 100
+
+
+def _scale_multiplier(affected: int) -> float:
+    """Impact scale multiplier from the affected-party count."""
+    for cap, mult in IMPACT_SCALE:
+        if affected <= cap:
+            return mult
+    return 2.0
+
+
+def calculate_delta(
+    witness_scores: List[int],
+    affected_parties: int = 1,
+    shadow_intent: bool = False,
+) -> Tuple[int, str]:
+    """Compute Δ Benevolence from witness scores (v2026.2).
+
+    witness_scores: one −5..+5 score per engaged witness
+        (abstaining witnesses are excluded from the list).
+    affected_parties: number of people impacted by the action.
+    shadow_intent: True when declared intent contradicts witnessed outcome.
+
+    Steps:
+      1. base = mean(scores) × 10            → range −50..+50
+      2. scale = impact multiplier           → 0.5x..2.0x
+      3. shadow modifier: positives zeroed, negatives doubled
+      4. delta = round(base × scale × shadow), clamped to −100..+100
+    """
+    if not witness_scores:
+        return 0, "v2026.2: no engaged witnesses — no benevolence signal"
+    for s in witness_scores:
+        if not -5 <= s <= 5:
+            raise ValueError(f"witness score {s} out of range −5..+5")
+
+    base = sum(witness_scores) / len(witness_scores) * 10
+    scale = _scale_multiplier(max(1, affected_parties))
+
+    if shadow_intent:
+        # Positives zeroed, negatives doubled — no credit for
+        # good intentions that produced harm.
+        signed = base * scale
+        adjusted = min(signed, 0) * 2 if signed < 0 else 0
+        basis = (
+            f"v2026.2: SHADOW INTENT — {len(witness_scores)} witness(es) "
+            f"scored avg {sum(witness_scores)/len(witness_scores):.1f}, "
+            f"scale ×{scale} ({affected_parties} affected), "
+            f"declared intent contradicted outcome: positives zeroed, "
+            f"negatives doubled"
+        )
+    else:
+        adjusted = base * scale
+        basis = (
+            f"v2026.2: {len(witness_scores)} witness(es) scored avg "
+            f"{sum(witness_scores)/len(witness_scores):.1f}, "
+            f"scale ×{scale} ({affected_parties} affected)"
+        )
+
+    delta = int(round(max(DELTA_MIN, min(DELTA_MAX, adjusted))))
+    return delta, basis
 
 
 def verify_ledger(ledger_path: Optional[Path] = None) -> Tuple[bool, str]:

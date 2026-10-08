@@ -10,6 +10,9 @@ Design notes (read before extending):
   comes from the SOUL_CRADLE_KEY environment variable. If it is absent, an
   ephemeral development key is generated and a loud warning is printed:
   envelopes will not survive a restart and this is NOT production posture.
+  Strict mode (SoulCradleAuthority(strict=True) or MYTHARA_PRODUCTION=1)
+  refuses the ephemeral fallback and raises instead — Dr Mythara's ePHI
+  paths must run strict.
   Production path: back the authority with a KMS/HSM and never let the key
   touch application code or logs.
 - This module enforces structural authorization: allowlisted action type,
@@ -174,11 +177,23 @@ class SoulCradleAuthority:
         key: Optional[bytes] = None,
         issuer_policy: Optional[Dict[str, List[str]]] = None,
         handlers: Optional[Dict[str, Handler]] = None,
+        strict: Optional[bool] = None,
     ):
+        """strict: when True, a missing key raises instead of generating
+        an ephemeral one. Defaults from the MYTHARA_PRODUCTION env var
+        ("1" = strict). Dr Mythara's ePHI paths must run strict."""
+        if strict is None:
+            strict = os.environ.get("MYTHARA_PRODUCTION", "") == "1"
         if key is None:
             env_key = os.environ.get("SOUL_CRADLE_KEY", "")
             if env_key:
                 key = env_key.encode("utf-8")
+            elif strict:
+                raise AuthorizationError(
+                    "MYTHARA_PRODUCTION=1: SOUL_CRADLE_KEY is not set. "
+                    "Refusing to run with an ephemeral key on a production "
+                    "path — set SOUL_CRADLE_KEY to a stable secret."
+                )
             else:
                 key = secrets.token_bytes(32)
                 print(

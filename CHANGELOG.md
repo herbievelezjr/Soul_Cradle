@@ -1,5 +1,15 @@
 # Changelog
 
+## Unreleased
+
+- `authorization.py`: strict mode — `SoulCradleAuthority(strict=True)` or
+  `MYTHARA_PRODUCTION=1` refuses the ephemeral-key fallback and raises
+  instead of generating one (ePHI paths must run strict)
+- `benevolence.py`: v2026.2 delta calculation — five-step witness-scored
+  consensus with impact-scale multipliers (supersedes the v2026.1
+  placeholder ranges; old function kept for compatibility)
+- `tests/test_authorization_strict.py`: strict-mode coverage
+
 ## v2026.1 — 2026-10-07
 
 Initial standalone release, extracted from Mythara_Archive.
