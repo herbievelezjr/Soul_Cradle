@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "soul-cradle-sdk"
+version = "2026.1"
+description = "Document-evaluation SDK for the Soul Cradle multi-witness trust layer"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["pypdf>=4"]
+
+[project.urls]
+Repository = "https://github.com/herbievelezjr/Soul_Cradle"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["soul_cradle_sdk*"]

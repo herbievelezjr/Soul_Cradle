@@ -85,3 +85,16 @@ Not certified for regulated data; no compliance claims are made.
 
 Source-available — see [LICENSE.md](LICENSE.md). Copyright © 2025 Herbert Velez Jr.
 Mythara Labs LLC (Colorado domestic LLC, filed 2026-10-04; CO SOS ID #20268239831).
+
+## Document-evaluation SDK
+
+**PDF in, hash-verified multi-agent evaluation out.** The `sdk/` directory
+is the enterprise on-ramp: point it at a compliance document, financial
+report, or policy draft and get back a sealed payload — the eight witnesses
+hear the reliance action, judge it on observed evidence, and every judgment
+is content-hashed and independently verifiable. See `sdk/README.md`.
+
+```bash
+cd sdk && pip install -e .
+python -m soul_cradle_sdk.cli report.pdf --out evaluation.json
+```
