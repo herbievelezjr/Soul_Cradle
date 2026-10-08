@@ -198,8 +198,9 @@ def test_witness_declaration_speaks_only_as_witness():
 
 
 def test_legacy_bot_shims_delegate_to_core():
-    import demeter_bot
-    import nemesis_bot
+    # Legacy shims live in Mythara_Archive, not in this standalone repo.
+    demeter_bot = pytest.importorskip("demeter_bot", reason="legacy shim (Mythara_Archive only)")
+    nemesis_bot = pytest.importorskip("nemesis_bot", reason="legacy shim (Mythara_Archive only)")
     j = demeter_bot.consult_evidence("good action", GOOD)
     assert j.assessor_id == "demeter" and j.verdict == CLEAR
     j2 = nemesis_bot.consult_evidence("bad action", dict(GOOD, disproportionate_harm=True))

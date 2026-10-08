@@ -1,5 +1,8 @@
 # Soul Cradle
 
+[![ci](https://github.com/herbievelezjr/Soul_Cradle/actions/workflows/ci.yml/badge.svg)](https://github.com/herbievelezjr/Soul_Cradle/actions/workflows/ci.yml)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/herbievelezjr/Soul_Cradle/blob/main/sdk/Soul_Cradle_SDK_Demo.ipynb)
+
 **A deterministic trust layer for multi-agent AI systems.**
 Version 2026.1 · Pre-revenue research prototype · Built by Herb Velez, Mythara Labs LLC
 
@@ -85,6 +88,12 @@ Not certified for regulated data; no compliance claims are made.
 
 Source-available — see [LICENSE.md](LICENSE.md). Copyright © 2025 Herbert Velez Jr.
 Mythara Labs LLC (Colorado domestic LLC, filed 2026-10-04; CO SOS ID #20268239831).
+
+**In plain English:** you may read, evaluate, and run the tests. Production
+use, distribution, and sublicensing require a signed written agreement —
+see [COMMERCIAL.md](COMMERCIAL.md) for tiers and how to start. Copyright
+stays with Herbert Velez Jr. This summary is explanatory only; `LICENSE.md`
+controls, and none of this is legal advice.
 
 ## Document-evaluation SDK
 

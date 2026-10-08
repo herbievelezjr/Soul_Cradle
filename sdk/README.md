@@ -67,3 +67,22 @@ on the evidence given — nothing more.
 ## License
 
 Source-available — see `../LICENSE.md`. Copyright © 2025 Herbert Velez Jr.
+
+## Docker
+
+```bash
+# from the repo root
+docker build -t soul-cradle-sdk -f sdk/Dockerfile .
+docker run --rm -v "$PWD/docs:/docs" soul-cradle-sdk /docs/report.pdf --out /docs/evaluation.json
+```
+
+## Try it now
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/herbievelezjr/Soul_Cradle/blob/main/sdk/Soul_Cradle_SDK_Demo.ipynb)
+— no install needed; evaluates the bundled examples and any PDF you upload.
+
+## Evaluation & limitations
+
+See [EVAL.md](EVAL.md) for what was tested, the two-example results table,
+and the stated limits (English-only heuristics, no OCR, no accuracy
+benchmark yet).
