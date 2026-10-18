@@ -1,7 +1,8 @@
-"""Herb's will, machine-enforced, for the VP Marketing domain.
+"""The operator will — standing orders for the VP Marketing domain, machine-enforced.
 
-Single source of truth: WILL.md at the repo root. This module parses it at
-load. Herb edits the markdown on his phone; he never touches this file.
+Single source of truth: WILL.md (maintained in the Mythara_Archive repo;
+this module parses a copy placed at the repo root). This module parses it at
+load. The operator edits the markdown; this file is never edited by hand.
 
 Fail-closed: if WILL.md is missing, unreadable, or malformed, every check
 returns ("escalate", ...) — the VP may draft and queue, but nothing autonomous
@@ -150,7 +151,7 @@ def scan_text(text: str) -> Optional[str]:
 
 
 def check(decision: Dict[str, Any]) -> Tuple[str, str]:
-    """Judge one VP decision against Herb's will.
+    """Judge one VP decision against the operator will.
 
     Returns ("allow", reason) or ("escalate", reason). Fail-closed: any
     problem with the will itself, or any trigger match, escalates.
@@ -173,7 +174,7 @@ def check(decision: Dict[str, Any]) -> Tuple[str, str]:
                 return (
                     ESCALATE,
                     f"SPEND: cost_per_month={cost}, budget_allocated={alloc} — "
-                    "Herb's will requires $0 spend without his approval",
+                    "the operator will (WILL.md) requires $0 spend without operator approval",
                 )
         except (TypeError, ValueError):
             return ESCALATE, "SPEND: unreadable cost fields — fail closed"
@@ -184,14 +185,14 @@ def check(decision: Dict[str, Any]) -> Tuple[str, str]:
     if bot_type in _WILL.contact_bot_types:
         return (
             ESCALATE,
-            f"CONTACT: bot_type {bot_type!r} contacts humans under Herb's name — "
-            "needs Herb's explicit approval",
+            f"CONTACT: bot_type {bot_type!r} contacts humans under the operator's name — "
+            "needs explicit operator approval",
         )
     if decision_type in _WILL.contact_decision_types:
         return (
             ESCALATE,
-            f"CONTACT: decision_type {decision_type!r} publishes/sends under Herb's "
-            "name — needs Herb's explicit approval",
+            f"CONTACT: decision_type {decision_type!r} publishes/sends under the operator's "
+            "name — needs explicit operator approval",
         )
 
     # -- NEW_API --------------------------------------------------------------
@@ -201,7 +202,7 @@ def check(decision: Dict[str, Any]) -> Tuple[str, str]:
             return (
                 ESCALATE,
                 "NEW_API: decision needs a new external API key/integration — "
-                "needs Herb's explicit approval",
+                "needs explicit operator approval",
             )
 
     # -- FABRICATED_CLAIM -------------------------------------------------------
@@ -211,7 +212,7 @@ def check(decision: Dict[str, Any]) -> Tuple[str, str]:
             return (
                 ESCALATE,
                 f"FABRICATED_CLAIM: decision text matches forbidden pattern "
-                f"{matched!r} — Herb's will forbids invented claims",
+                f"{matched!r} — the operator will forbids invented claims",
             )
 
-    return ALLOW, "within Herb's will: $0 spend, no auto-send, no new APIs, honest claims"
+    return ALLOW, "within the operator will: $0 spend, no auto-send, no new APIs, honest claims"
