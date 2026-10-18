@@ -1,6 +1,6 @@
-# Mythara Engine — Source-Available License
+# SoulCradle — Source-Available License
 
-**Copyright © 2025 Herbert Velez Jr. All rights reserved.**
+**Copyright © 2025 Herbert Velez Jr. Mythara Labs LLC (Colorado domestic LLC, filed 2026-10-04; CO SOS ID #20268239831). All rights reserved.**
 
 ---
 
@@ -42,10 +42,10 @@ time such an entity and program exist — not by this file.
 
 For licensing inquiries:
 
-**Herbert Velez Jr.**
-Email: <Mythara.Engine@yahoo.com>
+**Mythara Labs LLC**
+Email: <MytharaLabsLLC@yahoo.com>
 
 ---
 
-*November 18, 2025 (revised September 21, 2026 to remove claims about a
+*November 18, 2025 (revised October 2026 to reflect the formation of Mythara Labs LLC and to remove claims about a
 nonexistent company, nonexistent insurance, and ungranted license tiers).*
