@@ -1,4 +1,4 @@
-# Contributing to Soul Cradle
+# Contributing to SoulCradle
 
 ## Ground rules
 

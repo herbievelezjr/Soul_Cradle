@@ -1,10 +1,10 @@
-# Soul Cradle
+# SoulCradle
 
 [![ci](https://github.com/herbievelezjr/Soul_Cradle/actions/workflows/ci.yml/badge.svg)](https://github.com/herbievelezjr/Soul_Cradle/actions/workflows/ci.yml)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/herbievelezjr/Soul_Cradle/blob/main/sdk/Soul_Cradle_SDK_Demo.ipynb)
 
 **A deterministic trust layer for multi-agent AI systems.**
-Version 2026.1 · Pre-revenue research prototype · Built by Herb Velez, Mythara Labs LLC
+Version 2026.1 · Pre-revenue research prototype · Mythara Labs LLC
 
 > Every consequential act is heard by a panel of specialized assessors, judged
 > against versioned rubrics over observable evidence, and sealed into a

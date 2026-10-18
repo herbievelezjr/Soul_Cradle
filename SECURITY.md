@@ -2,7 +2,7 @@
 
 ## Reporting a vulnerability
 
-Email **MytharaLabsLLC@yahoo.com** with subject `SECURITY: Soul Cradle`.
+Email **MytharaLabsLLC@yahoo.com** with subject `SECURITY: SoulCradle`.
 Include what you found, what you tested it against, and how to reproduce it.
 We will acknowledge within 5 business days.
 

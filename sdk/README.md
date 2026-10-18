@@ -1,9 +1,9 @@
-# Soul Cradle Document-Evaluation SDK
+# SoulCradle Document-Evaluation SDK
 
 **PDF in, hash-verified multi-agent evaluation out.** v2026.1
 
 Send a document — a compliance report, a financial memo, a policy draft —
-and get back a sealed evaluation payload: the eight Soul Cradle
+and get back a sealed evaluation payload: the eight SoulCradle
 assessor-witnesses hear the action *"rely on this document as a basis for
 decisions,"* judge it on observed evidence under their versioned rubrics,
 and every judgment is sealed by content hash. Dissent is surfaced, never
