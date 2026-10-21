@@ -18,3 +18,5 @@ jobs:
       # (fastapi app, soul_cradle_operator, gopher engine, proportion model)
       # and run in that repo's suite.
       - run: pytest tests/test_assessors.py tests/test_emotional_chain.py tests/test_soul_cradle_math.py tests/test_standing.py sdk/tests/ -q
+        env:
+          PYTHONPATH: ${{ github.workspace }}
